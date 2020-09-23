@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="author" content="Sinichenko Konstantin">
+    <meta name="description" content="Web-programming lab1">
+    <!-- <link rel="stylesheet" href="outlines.css" /> -->
+    <title>Синиченко Константин M33041</title>
+</head>
+<body>
+    <header>
+      <h1>Синиченко Константин Геннадьевич</h1>
+      <h2>Junior C# Developer</h2>
+      <p>+7 950 045 78 97 | k.sinichenko@yandex.by</p>
+      <hr/>
+    </header>
+    <main>
+      <article>
+        <h2>Образование</h2>
+        <section>
+          <b><i>Университет ИТМО, бюджет, <time datetime="2018">2018</time> - <time datetime="2022">2022</time></i></b>
+          <p>Факультет информационных технологий и программирования</p>
+        </section>
+      </article>
+      <article>
+        <h2>Курсы, стажировки</h2>
+        <section>
+          <b><i>Курсы C# разработчика First Line Software со стажировкой, <time datetime="2020-02">февраль 2020</time> - <time datetime="2020-05">май 2020</time></i></b>
+          <p>Участвовал в создании сервиса обработки событий GitHub и сервиса сбора статистики о процессе разработки на основе данных событий.</p>
+        </section>
+        <section>
+          <b><i>Курсы C# разработчика Veeam Academy, <time datetime="2019-09">сентябрь 2019</time> - <time datetime="2019-12">декабрь 2019</time></i></b>
+          <p>
+            Участвовал в командной разработке web-приложения, в которой отвечал за систему регистрации и аутентификации, а также систему поиска.<br>
+            Реализовал многопользовательскую игру с микросервисной архитектурой.<br>
+            По итогу курсов получил удостоверение о повышении квалификации.
+          </p>
+        </section>
+      </article>
+      <article>
+        <h2>Навыки</h2>
+        <section>
+          <b><i>Hard skills</i></b>
+          <ul>
+            <li>Владею навыками программирования на C# и C++.</li>
+            <li>Знаю WPF для реализации десктопного UI.</li>
+            <li>Владею фреймворками для реализации микросервисной архитектуры: Web-API, WCF, Convey.</li>
+            <li>Умею проектировать и писать запросы к базам данных MS SQL, использовать Entity Framework.</li>
+            <li>Владею навыками работы с системами контроля версий Git и TFS.</li>
+            <li>Применяю NUnit и MockItEasy для написания модульных и интеграционных тестов.</li>
+            <li>Есть опыт применения GitHub Actions для реализации CI.</li>
+            <li>Имею навыки работы с библиотеками для логирования и парсинга разных форматов.</li>
+            <li>Умею разрабатывать многопоточные приложения.</li>
+            <li>Знаю подробности реализации и умею применять множество алгоритмов и структур данных.</li>
+          </ul>
+        </section>
+        <section>
+          <b><i>Soft skills</i></b>
+          <ul>
+            <li>Готов разбираться в проблемах и искать наиболее эффективное решение.</li>
+            <li>Способен быстро изучать новые технологии.</li>
+            <li>Есть опыт командной разработки по Scrum.</li>
+            <li>Имею небольшой опыт преподавания, наставничества и организации учебного процесса.</li>
+          </ul>
+        </section>
+        <section>
+          <b><i>Языки</i></b>
+          <p>Английский - B1</p>
+        </section>
+      </article>
+      <article>
+        <h2>Личные проекты</h2>
+        <ul>
+          <li><a href="https://github.com/TheSplendidOne/ActionChess">Многопользовательская онлайн игра с микросервисной архитектурой написанная за время обучения в Veeam Academy</a></li>
+          <li><a href="https://github.com/TheSplendidOne/VSPastebinExtension">Расширение Visual Studio для работы с сайтом Pastebin прямо из IDE</a></li>
+          <li><a href="https://github.com/TheSplendidOne/VigenereEncoder">Веб-страница для шифрования и дешифрования текста по методу Виженера</a></li>
+          <li><a href="https://github.com/TheSplendidOne/SecurityThreatBrowser">Обозреватель официального перечня угроз информационной безопасности</a></li>
+        </ul>
+      </article>
+      <article>
+        <h2>Достижения</h2>
+        <ul>
+          <li>Командой заняли второе место в хакатоне по написанию игры на Контур.Кампус (<time datetime="2020-03">март 2020</time>).</li>
+          <li>Получил диплом второй степени в финальном этапе олимпиады по астрономии (<time datetime="2018-04">апрель 2018</time>).</li>
+          <li>Поступил в иностранный ВУЗ победив в олимпиаде по информатике (<time datetime="2018-01">январь 2018</time>).</li>
+        </ul>
+      </article>
+    </main>
+    <footer>
+      <hr/>
+      <pre>
+        public void StartSearchGame(Guid playerId)
+        {
+            CPlayer user = new CPlayer(playerId, OperationContext.Current);
+            _seekersCounter.Wait();
+            lock (_seekersLocker)
+            {
+                _gameSeekers.Add(user);
+                if (_seekersCounter.CurrentCount == 0)
+                    WaitHandle.SignalAndWait(_launchGameEnter, _launchGameReturn);
+            }
+        }
+
+        public void CancelSearchGame(Guid playerId)
+        {
+            lock (_seekersLocker)
+            {
+                CPlayer seeker = _gameSeekers.FirstOrDefault(s => s.PlayerId == playerId);
+                if (seeker != null)
+                {
+                    _gameSeekers.Remove(seeker);
+                    _seekersCounter.Release();
+                }
+            }
+        }
+
+        private void LaunchGame()
+        {
+            while (true)
+            {
+                _launchGameEnter.WaitOne();
+                CreateGame(_gameSeekers[0], _gameSeekers[1]);
+                _gameSeekers.Clear();
+                _seekersCounter.Release(2);
+                _launchGameReturn.Set();
+            }
+        }
+      </pre>
+      <sup>Порхай как бабочка, жаль как пчела.</sup>
+      <sub>Джейсон Стетхем</sub>
+    </footer>
+</body>
+</html>
